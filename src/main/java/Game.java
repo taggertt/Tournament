@@ -1,13 +1,15 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class Game {
 
-    public List<String> registeredPlayers = new ArrayList<>();
+    public HashMap<String, Integer> registeredPlayers = new HashMap<>();
     public Player[] players = new Player[0];
 
     public void register(Player player) {
-        registeredPlayers.add(player.getName());
+        registeredPlayers.put(player.getName(), player.getStrength());
         Player[] tmp = new Player[players.length + 1];
         for (int i = 0; i < players.length; i++) {
             tmp[i] = players[i];
@@ -16,20 +18,12 @@ public class Game {
         players = tmp;
     }
 
-    public int str(String searchText) { //find strength from playerName
-         for (Player player : players) {
-            if (player.matches(player, searchText)) {
-                return player.getStrength();
-            }
-        }
-         return 0;
-    }
     public int round(String playerName1, String playerName2) throws NotRegisteredException {
-        if (registeredPlayers.contains(playerName1) && registeredPlayers.contains(playerName2)) {
-            if (str(playerName1) > str(playerName2)) {
+        if (registeredPlayers.containsKey(playerName1) && registeredPlayers.containsKey(playerName2)) {
+            if (registeredPlayers.get(playerName1) > registeredPlayers.get(playerName2)) {
                 return 1;
             } else {
-                if (str(playerName1) < str(playerName2)) {
+                if (registeredPlayers.get(playerName1) < registeredPlayers.get(playerName2)) {
                     return 2;
                 } else {
                     return 0;

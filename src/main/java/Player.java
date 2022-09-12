@@ -33,12 +33,4 @@ public class Player {
     public void setStrength(int strength) {
         this.strength = strength;
     }
-
-    public boolean matches(Player player, String search) {
-        if (player.getName().contains(search)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
